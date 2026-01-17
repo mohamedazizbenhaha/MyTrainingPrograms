@@ -1,0 +1,30 @@
+### AWS Cloud Developing Training Program
+
+#### Program Overview
+- **Target Audience**: Developers and IT professionals with basic programming knowledge seeking to build on AWS.
+- **Prerequisites**: AWS Cloud Foundations or equivalent; familiarity with a programming language (e.g., Python).
+- **Delivery Format**: Instructor-led, online or in-person, with access to AWS Academy platform for student guides, demos, labs, and tools.
+- **Objectives**: Develop storage solutions, secure access, NoSQL databases, REST APIs, serverless apps, containers, caching, messaging, workflows, secure apps, and automate deployments.
+- **Certification Alignment**: Prepares for AWS Certified Developer – Associate (DVA-C02); includes knowledge checks, labs, and a dedicated prep module with practice exams.
+- **Total Duration**: 35 hours.
+- **Assessment**: Knowledge checks (quizzes) per module, hands-on labs, and certification practice.
+- **Materials Provided**: AWS Academy student guides, videos, demos, console walkthroughs, and lab environments.
+- **Pricing Suggestion for Commercialization**: $700 (2100TND) per participant (group discounts available); includes certification exam voucher option for +$150 (450 TND).
+
+#### Detailed Program Schedule
+
+| Module | Title                                      | Key Topics & Activities                                                                                          | Format                        |
+|--------|--------------------------------------------|------------------------------------------------------------------------------------------------------------------|-------------------------------|
+| 1      | Introduction to Developing on AWS          | Introduction; Student guide; Systems development lifecycle; Steps to get started on AWS; Demonstration: AWS CLI installation; Fundamentals of AWS SDKs ; Introduction to Amazon Q Developer; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Demo + Lab + Quiz |
+| 2      | Developing Storage Solutions               | Introduction; Student Guide; Introducing Amazon S3; Creating S3 buckets; Working with S3 objects ; Protecting data and managing access; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Lab + Quiz |
+| 3      | Securing Access to Cloud Resources         | Introduction; Student guide; Shared responsibility model; Introducing IAM; Authenticating with IAM; Demonstration: Configuring Cross-Account Access; Authorizing with IAM; Module Wrap-up video; Demonstration: Creating IAM Users and Groups; Knowledge Check. | Lecture + Demos + Quiz |
+| 4      | Developing Flexible NoSQL Solutions        | Introduction; Student guide; AWS database options; Key concepts for DynamoDB; Partitions and data distribution; Secondary indexes; Read/write throughput; Streams and global tables; Backup and restore; Basic operations for DynamoDB tables ; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Lab + Quiz |
+| 5      | Developing REST APIs                       | Introduction; Student guide; Introducing APIs; Introducing API Gateway ; Creating a REST API; Integrating with API Gateway (Parts 1-4); Deploying an API; Controlling access to a REST API (Parts 1-4); Monitoring a REST API; Optimizing API Gateway; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Lab + Quiz |
+| 6      | Developing Event-Driven Serverless Solutions | Introduction; Student Guide; Introducing serverless computing; Introducing Lambda; Invoking Lambda functions; Setting permissions for Lambda; Authoring and configuring Lambda functions; Deploying Lambda functions; Monitoring and debugging tools; Demonstration: Using X-Ray with Lambda; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Demo + Lab + Quiz |
+| 7      | Introducing Containers and Container Services | Introduction; Student guide; Introducing containers; Introducing Docker containers ; Lab; Using containers for microservices; Introducing AWS container services ; Deploying applications with AWS Elastic Beanstalk ; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Labs + Quiz |
+| 8      | Caching Information for Scalability        | Introduction; Student guide; Caching overview ; Caching with ElastiCache ; Lab; Caching with CloudFront (Parts 1-4); Caching strategies; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Labs + Quiz |
+| 9      | Developing with Messaging Services         | Introduction; Student guide; Processing requests asynchronously ; Introducing Amazon SQS; Working with Amazon SQS messages ; Configuring Amazon SQS queues ; Introducing Amazon SNS; Developing with Amazon SNS; Demonstration: Working with Amazon Messaging Services; Introducing Amazon Kinesis Data Streams ; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Demo + Lab + Quiz |
+| 10     | Defining Workflows to Orchestrate Functions | Introduction; Student Guide; Coordinating tasks in distributed applications; Introducing Step Functions; State types; Step Functions use cases; Step Functions API; Demonstration: Creating Simple Calculators by Using Step Functions; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Demo + Lab + Quiz |
+| 11     | Developing Secure Applications on AWS      | Introduction; Student Guide; Securing network connections; Authenticating with AWS STS ; Authenticating with Amazon Cognito ; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Lab + Quiz |
+| 12     | Automating Deployment Using CI/CD Pipelines | Introduction; Student Guide; Introducing DevOps; Using AWS code services for CI/CD; Deploying with AWS CloudFormation; Deploying with AWS SAM; Lab; Module Wrap-up video; Knowledge Check. | Lecture + Lab + Quiz |
+| 13     | Certification Preparation                  | Exam overview and domains (e.g., development with AWS services, security, deployment); Key topics review from course; Practice questions and mock exams; Study resources (e.g., AWS documentation, sample tests, SDK references); Tips for exam success; Q&A session. | Review + Practice + Interactive Session |
