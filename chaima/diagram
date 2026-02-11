@@ -1,0 +1,223 @@
+# Installation des dépendances
+!pip install matplotlib networkx
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle
+import numpy as np
+
+# Configuration de la figure
+fig, ax = plt.subplots(1, 1, figsize=(18, 14))
+ax.set_xlim(0, 10)
+ax.set_ylim(0, 13)
+ax.axis('off')
+
+# Palette de couleurs par couche
+colors = {
+    'soc': '#FF6B6B',           # Rouge clair
+    'visualization': '#4ECDC4',  # Turquoise
+    'storage': '#45B7D1',        # Bleu
+    'collection': '#96CEB4',     # Vert menthe
+    'detection': '#FFEAA7',      # Jaune
+    'infrastructure': '#DFE6E9', # Gris clair
+    'arrow_network': '#0984e3',  # Bleu foncé
+    'arrow_host': '#00b894',     # Vert
+    'arrow_data': '#6c5ce7',     # Violet
+}
+
+# Fonction pour créer une boîte arrondie
+def create_box(ax, x, y, width, height, label, color, fontsize=9, bold=True):
+    box = FancyBboxPatch(
+        (x, y), width, height,
+        boxstyle="round,pad=0.05",
+        edgecolor='#2d3436',
+        facecolor=color,
+        linewidth=2
+    )
+    ax.add_patch(box)
+    ax.text(
+        x + width/2, y + height/2, label,
+        ha='center', va='center',
+        fontsize=fontsize,
+        weight='bold' if bold else 'normal',
+        wrap=True
+    )
+    return box
+
+# Fonction pour créer une flèche
+def create_arrow(ax, x1, y1, x2, y2, label='', color='black', style='solid', width=2):
+    arrow = FancyArrowPatch(
+        (x1, y1), (x2, y2),
+        arrowstyle='->,head_width=0.3,head_length=0.6',
+        color=color,
+        linewidth=width,
+        linestyle=style,
+        mutation_scale=20
+    )
+    ax.add_patch(arrow)
+    
+    if label:
+        mid_x, mid_y = (x1 + x2) / 2, (y1 + y2) / 2
+        ax.text(
+            mid_x + 0.15, mid_y + 0.1, label,
+            fontsize=7,
+            style='italic',
+            bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.9, edgecolor='none')
+        )
+
+# ============================================
+# TITRE PRINCIPAL
+# ============================================
+ax.text(5, 12.5, 'PLATEFORME IDS/HIDS - ARCHITECTURE COMPLÈTE', 
+        ha='center', fontsize=18, weight='bold', 
+        bbox=dict(boxstyle='round,pad=0.5', facecolor='#74b9ff', alpha=0.3))
+
+# ============================================
+# COUCHE 0: SOC ANALYSTS (Top)
+# ============================================
+ax.text(0.3, 11.5, '🎯 ÉQUIPE SOC', fontsize=11, weight='bold', color='#d63031')
+create_box(ax, 3.5, 11, 3, 0.6, 'SOC ANALYSTS\n(Surveillance & Réponse)', colors['soc'], 10)
+
+# ============================================
+# COUCHE 1: VISUALISATION
+# ============================================
+ax.text(0.3, 10.2, '📊 COUCHE 1: VISUALISATION', fontsize=11, weight='bold')
+create_box(ax, 1, 9.3, 2.3, 0.7, 'Wazuh Dashboard\n(Interface Intégrée)', colors['visualization'])
+create_box(ax, 3.8, 9.3, 2.3, 0.7, 'Kibana / OpenSearch\nDashboards', colors['visualization'])
+create_box(ax, 6.6, 9.3, 2.3, 0.7, 'Grafana\n(Métriques)', colors['visualization'])
+
+# ============================================
+# COUCHE 2: STOCKAGE & SIEM
+# ============================================
+ax.text(0.3, 8.4, '💾 COUCHE 2: STOCKAGE & CORRÉLATION', fontsize=11, weight='bold')
+create_box(ax, 1.5, 7.3, 3, 0.8, 'Elasticsearch / OpenSearch\n(Indexation & Recherche)', colors['storage'], 10)
+create_box(ax, 5.5, 7.3, 3, 0.8, 'Wazuh Manager\n(Moteur de Corrélation)', colors['storage'], 10)
+
+# ============================================
+# COUCHE 3: COLLECTE & AGRÉGATION
+# ============================================
+ax.text(0.3, 6.4, '📥 COUCHE 3: COLLECTE & AGRÉGATION', fontsize=11, weight='bold')
+create_box(ax, 0.8, 5.4, 1.8, 0.7, 'Filebeat\n(Log Shipper)', colors['collection'])
+create_box(ax, 3, 5.4, 1.8, 0.7, 'Logstash\n(Transform)', colors['collection'])
+create_box(ax, 5.2, 5.4, 1.8, 0.7, 'Packetbeat\n(Network)', colors['collection'])
+create_box(ax, 7.4, 5.4, 1.8, 0.7, 'Wazuh Manager\n(Receiver)', colors['collection'])
+
+# ============================================
+# COUCHE 4: DÉTECTION
+# ============================================
+ax.text(0.3, 4.5, '🛡️ COUCHE 4: DÉTECTION', fontsize=11, weight='bold')
+# Network IDS
+create_box(ax, 0.8, 3.2, 2.5, 0.9, 'Suricata NIDS\n(Détection Réseau)', colors['detection'], 9)
+# Host IDS
+create_box(ax, 4, 3.2, 2, 0.9, 'Wazuh Agent\nLinux', colors['detection'], 9)
+create_box(ax, 6.5, 3.2, 2, 0.9, 'Wazuh Agent\nWindows', colors['detection'], 9)
+
+# ============================================
+# COUCHE 5: INFRASTRUCTURE MONITORÉE
+# ============================================
+ax.text(0.3, 2.3, '🖥️ COUCHE 5: INFRASTRUCTURE MONITORÉE', fontsize=11, weight='bold')
+# Réseau
+create_box(ax, 0.5, 0.8, 1.8, 0.8, 'Trafic Réseau\n(Internet/LAN)', colors['infrastructure'], 8)
+create_box(ax, 0.5, 0, 1.8, 0.6, 'Port Mirror/TAP', colors['infrastructure'], 8)
+# Serveurs et Postes
+create_box(ax, 3, 0.8, 1.6, 0.8, 'Serveurs\nLinux', colors['infrastructure'], 8)
+create_box(ax, 5, 0.8, 1.6, 0.8, 'Serveurs\nWindows', colors['infrastructure'], 8)
+create_box(ax, 7, 0.8, 1.6, 0.8, 'Postes de\nTravail', colors['infrastructure'], 8)
+
+# ============================================
+# FLUX DE DONNÉES
+# ============================================
+
+# --- FLUX RÉSEAU (Infrastructure → Détection → Collection → Storage) ---
+# Trafic → Mirror
+create_arrow(ax, 1.4, 0.8, 1.4, 0.6, '', colors['arrow_network'], 'solid', 2.5)
+# Mirror → Suricata
+create_arrow(ax, 1.4, 0.3, 2.05, 3.2, 'Mirror', colors['arrow_network'], 'solid', 2.5)
+# Trafic → Packetbeat (optionnel)
+create_arrow(ax, 1.8, 1.2, 6.1, 5.4, 'Capture', colors['arrow_network'], 'dashed', 1.5)
+# Suricata → Filebeat
+create_arrow(ax, 2.05, 4.1, 1.7, 5.4, 'eve.json\nAlerts', colors['arrow_network'], 'solid', 2.5)
+# Filebeat → Logstash
+create_arrow(ax, 2.6, 5.4, 3.9, 5.4, 'JSON', colors['arrow_network'], 'solid', 2)
+# Logstash → Elasticsearch
+create_arrow(ax, 3.9, 5.9, 3, 7.3, 'Enriched', colors['arrow_network'], 'solid', 2)
+# Filebeat → Elasticsearch (direct)
+create_arrow(ax, 1.7, 6.1, 3, 7.5, 'Direct', colors['arrow_network'], 'dashed', 1.5)
+# Packetbeat → Elasticsearch
+create_arrow(ax, 6.1, 6.1, 3, 7.5, 'Metrics', colors['arrow_network'], 'dashed', 1.5)
+
+# --- FLUX HÔTE (Serveurs → Agents → Wazuh Manager → Elasticsearch) ---
+# Serveurs Linux → Agent
+create_arrow(ax, 3.8, 1.6, 5, 3.2, 'Logs\nFIM', colors['arrow_host'], 'solid', 2.5)
+# Serveurs Windows → Agent
+create_arrow(ax, 5.8, 1.6, 7.5, 3.2, 'Logs\nFIM', colors['arrow_host'], 'solid', 2.5)
+# Postes → Agent
+create_arrow(ax, 7.8, 1.6, 7.5, 3.2, 'Events', colors['arrow_host'], 'solid', 2)
+# Agents → Wazuh Manager (collecte)
+create_arrow(ax, 5, 4.1, 8.3, 5.4, 'Port\n1514/1515', colors['arrow_host'], 'solid', 2.5)
+create_arrow(ax, 7.5, 4.1, 8.3, 5.4, '', colors['arrow_host'], 'solid', 2.5)
+# Wazuh Manager → Wazuh Manager (storage)
+create_arrow(ax, 8.3, 6.1, 7, 7.3, 'Analyzed', colors['arrow_host'], 'solid', 2.5)
+# Wazuh Manager (storage) → Elasticsearch
+create_arrow(ax, 6.5, 7.7, 4.5, 7.7, 'API\nAlerts', colors['arrow_data'], 'solid', 2.5)
+
+# --- FLUX VISUALISATION (Storage → Dashboards → SOC) ---
+# Elasticsearch → Kibana
+create_arrow(ax, 3, 8.1, 5, 9.3, 'Query', colors['arrow_data'], 'solid', 2)
+# Elasticsearch → Wazuh Dashboard
+create_arrow(ax, 3, 8.1, 2.15, 9.3, 'Query', colors['arrow_data'], 'solid', 2)
+# Wazuh Manager → Wazuh Dashboard (direct)
+create_arrow(ax, 7, 8.1, 2.15, 9.3, 'Direct', colors['arrow_data'], 'dashed', 1.5)
+# Elasticsearch → Grafana
+create_arrow(ax, 4.5, 8.1, 7.75, 9.3, 'Metrics', colors['arrow_data'], 'dashed', 1.5)
+
+# Dashboards → SOC
+create_arrow(ax, 2.15, 10, 5, 11, 'Monitor', '#d63031', 'solid', 2.5)
+create_arrow(ax, 5, 10, 5, 11, '', '#d63031', 'solid', 2.5)
+create_arrow(ax, 7.75, 10, 5, 11, '', '#d63031', 'solid', 2.5)
+
+# --- FLUX DE CORRÉLATION (bidirectionnel) ---
+create_arrow(ax, 4.5, 7.5, 6.5, 7.5, 'Correlation', colors['arrow_data'], 'dotted', 2)
+
+# ============================================
+# LÉGENDES
+# ============================================
+legend_y = -0.8
+ax.text(0.5, legend_y, '📌 LÉGENDE DES FLUX:', fontsize=10, weight='bold')
+
+# Légende des types de flux
+legend_elements = [
+    mpatches.Patch(color=colors['arrow_network'], label='Flux Réseau (Suricata)'),
+    mpatches.Patch(color=colors['arrow_host'], label='Flux Hôte (Wazuh)'),
+    mpatches.Patch(color=colors['arrow_data'], label='Flux Données/API'),
+    mpatches.Patch(color='#d63031', label='Flux Supervision SOC'),
+]
+ax.legend(handles=legend_elements, loc='lower left', fontsize=9, ncol=4, 
+          frameon=True, fancybox=True, shadow=True)
+
+# Annotations importantes
+ax.text(9.5, 7.7, '🔐 TLS/SSL', fontsize=7, style='italic',
+        bbox=dict(boxstyle='round', facecolor='yellow', alpha=0.5))
+ax.text(9.5, 5.8, '⚡ Temps Réel', fontsize=7, style='italic',
+        bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.5))
+
+plt.tight_layout()
+plt.savefig('architecture_ids_hids_complete.png', dpi=300, bbox_inches='tight', facecolor='white')
+print("✅ Diagramme généré avec succès : architecture_ids_hids_complete.png")
+print("\n" + "="*60)
+print("📊 ARCHITECTURE GÉNÉRÉE:")
+print("="*60)
+print("✓ Couche SOC: Surveillance et réponse aux incidents")
+print("✓ Couche Visualisation: 3 dashboards (Wazuh, Kibana, Grafana)")
+print("✓ Couche Stockage: Elasticsearch + Wazuh Manager")
+print("✓ Couche Collecte: Filebeat, Logstash, Packetbeat")
+print("✓ Couche Détection: Suricata NIDS + Wazuh Agents")
+print("✓ Infrastructure: Serveurs Linux/Windows + Réseau")
+print("\n🔄 FLUX DE DONNÉES:")
+print("  → Flux Réseau (bleu): Suricata → Filebeat → ES")
+print("  → Flux Hôte (vert): Agents → Wazuh Manager → ES")
+print("  → Flux API (violet): Corrélation et indexation")
+print("  → Flux SOC (rouge): Monitoring et investigation")
+print("="*60)
+
+plt.show()
